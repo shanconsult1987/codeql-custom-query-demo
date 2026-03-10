@@ -2,32 +2,29 @@ name: CodeQL Custom Query Demo
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   analyze:
-
-    name: CodeQL Analysis
     runs-on: ubuntu-latest
 
     permissions:
       security-events: write
       contents: read
-      actions: read
 
     steps:
 
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: python
-        queries: ./codeql-custom-queries
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python
+          queries: +./codeql-custom-queries
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      - name: Run CodeQL
+        uses: github/codeql-action/analyze@v3
